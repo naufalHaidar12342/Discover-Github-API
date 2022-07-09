@@ -1,5 +1,6 @@
 package xyz.heydarrn.githubuserwithapi
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -17,14 +18,15 @@ class MainActivity : AppCompatActivity() {
         bindingMain= ActivityMainBinding.inflate(layoutInflater)
         setContentView(bindingMain.root)
 
+        
         bindingMain.apply {
             //mendapatkan teks dari searchview
             searchviewUser.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(p0: String?): Boolean {
                     //ketika user tekan enter/klik kaca pembesar
-                    loadingAnimationSearch.visibility=View.VISIBLE
-                    p0?.let { viewModel.searchUser(it) }
+                    viewModel.searchUser(p0!!)
                     searchviewUser.clearFocus()
+                    loadingAnimationSearch.visibility=View.VISIBLE
                     return true
                 }
 
@@ -42,10 +44,18 @@ class MainActivity : AppCompatActivity() {
             }
             adapterSearch.openDetailWithUsername(object : SearchListAdapter.OnUserClicked {
                 override fun chooseUser(userChosen: String) {
-
+                    startActivity(
+                        Intent(this@MainActivity,UserDetailActivity::class.java).putExtra(UserDetailActivity.EXTRA_USERNAME,userChosen)
+                    )
                 }
 
             })
+            viewModel.setSearchUser().observe(this@MainActivity){
+                if (it!=null){
+                    adapterSearch.submitList(it)
+                    loadingAnimationSearch.visibility=View.INVISIBLE
+                }
+            }
         }
 
     }

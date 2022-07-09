@@ -13,7 +13,8 @@ class SearchViewModel:ViewModel() {
     private val listOfUser: LiveData<ArrayList<ItemsItem>> = _listOfUser
 
     fun searchUser(username:String){
-        APIConfig.getApiService().searchUser(username).enqueue(object : Callback<SearchResponse> {
+        val client=APIConfig.getApiService().searchUser(username)
+        client.enqueue(object : Callback<SearchResponse> {
             override fun onResponse(
                 call: Call<SearchResponse>,
                 response: Response<SearchResponse>

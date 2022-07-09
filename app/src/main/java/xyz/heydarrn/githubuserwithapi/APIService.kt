@@ -11,15 +11,15 @@ interface APIService {
     @GET("search/users")
     fun searchUser(@Query("q") searchThisUser:String) : Call<SearchResponse>
 
-    @Headers(GITHUB_TOKEN)
+
     @GET("users/{username}")
     fun getSelectedUserDetail(@Path("username") usernameDetail:String) : Call<DetailResponse>
 
-    @Headers(GITHUB_TOKEN)
+
     @GET("users/{username}/followers")
     fun selectedUserFollower(@Path("username") usernameFollower:String): Call<ArrayList<FollowerResponse>>
 
-    @Headers(GITHUB_TOKEN)
+
     @GET("users/{username}/following")
     fun selectedUserFollowing(@Path("username") userFollowing: String) : Call<ArrayList<FollowingResponse>>
 

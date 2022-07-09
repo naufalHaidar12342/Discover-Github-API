@@ -17,8 +17,9 @@ class SearchListAdapter:ListAdapter<ItemsItem,SearchListAdapter.SearchViewHolder
             bindingUser.apply {
                 Glide.with(itemView)
                     .load(user.avatarUrl)
+                    .circleCrop()
                     .into(userAvatar)
-                usernameOfUser.text=user.login
+                usernameOfUser.text=itemView.context.getString(R.string.username_template,user.login)
 
                 root.setOnClickListener {
                     whenUserChosen?.chooseUser(user.login)

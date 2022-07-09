@@ -5,4 +5,10 @@
     <string name="john_doe">John Doe</string>
     <string name="company_google_llc">Company : Google, LLC</string>
     <string name="_10_public_repository">10 public repository</string>
+    <string name="follower">Follower</string>
+    <string name="following">Following</string>
+
+    <string name="username_template">\@%1$s</string>
+    <string name="company_template">Company : %1$s</string>
+    <string name="repository_template">%1$s public repository</string>
 </resources>
