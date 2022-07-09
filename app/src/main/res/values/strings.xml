@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Github User With API</string>
+    <string name="john_doe_username">\@johndoe</string>
+    <string name="john_doe_profile_picture">John Doe profile picture</string>
+    <string name="john_doe">John Doe</string>
+    <string name="company_google_llc">Company : Google, LLC</string>
+    <string name="_10_public_repository">10 public repository</string>
 </resources>
