@@ -1,12 +1,17 @@
 package xyz.heydarrn.githubuserwithapi
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import xyz.heydarrn.githubuserwithapi.databinding.FragmentFollowingBinding
 
 class FollowingFragment : Fragment() {
@@ -34,9 +39,14 @@ class FollowingFragment : Fragment() {
             viewModel.setFollowing().observe(viewLifecycleOwner){
                 if (it!=null){
                     adapterFollowing.submitList(it)
-                    bindingFollowing.loadingAnimationFollowing.visibility=View.INVISIBLE
+                    loadingAnimationFollowing.visibility=View.INVISIBLE
                 }
             }
+            viewModel.viewModelScope.launch {
+                delay(1000)
+                loadingAnimationFollowing.visibility=View.INVISIBLE
+            }
+
         }
     }
 }

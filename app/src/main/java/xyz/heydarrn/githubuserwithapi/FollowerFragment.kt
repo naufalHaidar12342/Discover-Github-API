@@ -6,7 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import xyz.heydarrn.githubuserwithapi.databinding.FragmentFollowerBinding
 
 class FollowerFragment : Fragment() {
@@ -30,17 +33,17 @@ class FollowerFragment : Fragment() {
         bindingFollower.apply {
             recyclerViewFollower.layoutManager=LinearLayoutManager(context)
             recyclerViewFollower.adapter=adapterFollower
-        }
-        viewModel.getFollower(username)
-        viewModel.setFollower().observe(viewLifecycleOwner){
-            if (it!=null){
-                adapterFollower.submitList(it)
-                bindingFollower.progressBarFollower.visibility=View.INVISIBLE
+            viewModel.getFollower(username)
+            viewModel.setFollower().observe(viewLifecycleOwner){
+                if (it!=null){
+                    adapterFollower.submitList(it)
+                    progressBarFollower.visibility=View.INVISIBLE
+                }
+            }
+            viewModel.viewModelScope.launch {
+                delay(1000)
+                progressBarFollower.visibility=View.INVISIBLE
             }
         }
-    }
-
-    companion object {
-
     }
 }

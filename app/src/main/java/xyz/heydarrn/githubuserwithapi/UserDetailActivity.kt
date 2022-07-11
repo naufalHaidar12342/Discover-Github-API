@@ -2,9 +2,13 @@ package xyz.heydarrn.githubuserwithapi
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.activity.viewModels
+import androidx.lifecycle.viewModelScope
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import xyz.heydarrn.githubuserwithapi.databinding.ActivityUserDetailBinding
 
 class UserDetailActivity : AppCompatActivity() {
@@ -29,9 +33,14 @@ class UserDetailActivity : AppCompatActivity() {
 
             viewModel.getUserDetail(intent.getStringExtra(EXTRA_USERNAME).toString())
             viewModel.setUserDetail().observe(this@UserDetailActivity){
+                viewModel.viewModelScope.launch{
+                    delay(100)
+                    progressBar.visibility=View.INVISIBLE
+                }
                 if (it!=null){
                     Glide.with(this@UserDetailActivity)
                         .load(it.avatarUrl)
+                        .circleCrop()
                         .into(detailUserAvatar)
                     detailUsername.text=resources.getString(R.string.username_template,it.login)
                     if (it.name!=null){

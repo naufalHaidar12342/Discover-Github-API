@@ -18,6 +18,7 @@ class SearchListAdapter:ListAdapter<ItemsItem,SearchListAdapter.SearchViewHolder
                 Glide.with(itemView)
                     .load(user.avatarUrl)
                     .circleCrop()
+                    .override(200,200)
                     .into(userAvatar)
                 usernameOfUser.text=itemView.context.getString(R.string.username_template,user.login)
 
