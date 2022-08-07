@@ -7,7 +7,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface APIService {
-    @Headers(GITHUB_TOKEN)
+//    @Headers(GITHUB_TOKEN)
     @GET("search/users")
     fun searchUser(@Query("q") searchThisUser:String) : Call<SearchResponse>
 
